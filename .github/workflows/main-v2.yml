@@ -10,13 +10,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install FFmpeg
-        run: sudo apt-get install -y ffmpeg python3-pip
-             pip3 install gdown
+      - name: Install FFmpeg and Python packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg python3-pip
+          pip3 install gdown
 
       - name: Download Video
         run: |
-          gdown https://drive.google.com/file/d/1--WM8ELgK7hb4aWUyFpYbQHslPw1eE_r/view?usp=drivesdk -o input.mp4
+          gdown "https://drive.google.com/uc?id=1--WM8ELgK7hb4aWUyFpYbQHslPw1eE_r" -o input.mp4
 
       - name: Re-encode video
         run: ffmpeg -i input.mp4 -c:v libx264 -preset medium -crf 23 -c:a copy -r 60 output.mp4
@@ -24,8 +26,7 @@ jobs:
       - name: Upload re-encoded video
         uses: softprops/action-gh-release@v1
         with:
-          files: |
-            ${{ github.workspace }}/output.mp4
+          files: output.mp4
           name: Re-encoded video
           tag_name: ${{ github.run_id }}
           body: |
