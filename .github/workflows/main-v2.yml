@@ -18,10 +18,10 @@ jobs:
 
       - name: Download Video
         run: |
-          gdown "https://drive.google.com/uc?id=1--WM8ELgK7hb4aWUyFpYbQHslPw1eE_r" -o input.mp4
+          gdown "https://drive.google.com/uc?id=1--WM8ELgK7hb4aWUyFpYbQHslPw1eE_r" -O input.mp4
 
       - name: Re-encode video
-        run: ffmpeg -i input.mp4 -c:v libx264 -preset medium -crf 23 -c:a copy -r 60 output.mp4
+        run: ffmpeg -i input.mp4 -c:v copy -c:a copy output.mp4
 
       - name: Upload re-encoded video
         uses: softprops/action-gh-release@v1
