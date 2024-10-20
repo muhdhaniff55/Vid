@@ -15,7 +15,7 @@ jobs:
 
       - name: Download Video
         run: |
-          VIDEO_URL="https://drive.usercontent.google.com/download?id=1--WM8ELgK7hb4aWUyFpYbQHslPw1eE_r&export=download"  # Replace with your video link
+          VIDEO_URL="https://drive.usercontent.google.com/download?id=1--WM8ELgK7hb4aWUyFpYbQHslPw1eE_r&export=download&confirm=t&uuid=ba6bb6b7-50e8-4c2f-b593-6482d899d2f9"  # Replace with your video link
           curl -L -o input.mp4 $VIDEO_URL
 
       - name: Re-encode video
