@@ -30,4 +30,4 @@ jobs:
           name: Re-encoded video
           tag_name: ${{ github.run_id }}
           body: |
-            Released on $(date +'%B %-d, %Y %H:%M')
+            Released on ${{ env.date +'%B %-d, %Y %H:%M'}}
