@@ -22,7 +22,7 @@ jobs:
         run: ffmpeg -i input.mp4 -vcodec libx264 -crf 23 output.mp4
 
       - name: Upload re-encoded video
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: reencoded-video
           path: output.mp4
