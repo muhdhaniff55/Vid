@@ -22,7 +22,9 @@ jobs:
 
       - name: Re-encode video
         run: ffmpeg -i input.mp4 -c:v copy -c:a copy output.mp4
-             echo "RELEASE_DATE=$(date +'%B %-d, %Y %H:%M')" >> $GITHUB_ENV
+
+      - name: Set release date
+        run: echo "RELEASE_DATE=$(date +'%B %-d, %Y %H:%M')" >> $GITHUB_ENV
 
       - name: Upload re-encoded video
         uses: softprops/action-gh-release@v1
