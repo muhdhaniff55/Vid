@@ -1,36 +1,30 @@
-# This is a basic workflow to help you get started with Actions
+name: Re-encode Video
 
-name: CI
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  reencode:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Install FFmpeg
+        run: sudo apt-get install -y ffmpeg
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Download Video
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          VIDEO_URL="http://example.com/path/to/video.mp4"  # Replace with your video link
+          curl -L -o input.mp4 $VIDEO_URL
+
+      - name: Re-encode video
+        run: ffmpeg -i input.mp4 -vcodec libx264 -crf 23 output.mp4
+
+      - name: Upload re-encoded video
+        uses: actions/upload-artifact@v2
+        with:
+          name: reencoded-video
+          path: output.mp4
