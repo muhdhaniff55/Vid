@@ -19,7 +19,7 @@ jobs:
           curl -L -o input.mp4 $VIDEO_URL
 
       - name: Re-encode video
-        run: ffmpeg -i input.mp4 -c:v libx264 -preset medium -crf 23 -c:a copy -r 60 output.mp4
+        run: ffmpeg -fflags +genpts -i input.mp4 -c:v libx264 -preset medium -crf 23 -c:a copy -r 60 output.mp4
 
       - name: Upload re-encoded video
         uses: actions/upload-artifact@v4
