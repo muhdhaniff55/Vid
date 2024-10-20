@@ -17,7 +17,7 @@ jobs:
 
       - name: Download Video
         run: |
-          VIDEO_URL="https://drive.google.com/file/d/0Bx9tPDyzQKedVnJZVXNhbUwtOFk/view?usp=drivesdk&resourcekey=0-NG0EJSuUC0n3bhkcS9y9SA"  # Replace with your video link
+          VIDEO_URL="https://drive.google.com/file/d/19P7NLoo0Z-031bgLXHFPzq2k2Fe0LAzq/view?usp=drivesdk"  # Replace with your video link
           curl -L -o input.mp4 $VIDEO_URL
 
       - name: Re-encode video
