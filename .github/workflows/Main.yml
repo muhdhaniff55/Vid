@@ -15,11 +15,11 @@ jobs:
 
       - name: Download Video
         run: |
-          VIDEO_URL="https://ggredi.info/download.php?url=aHR0cHM6LyAawehyfcghysfdsDGDYdgdsfsdfwstdgdsgtert9AdeqwrwedffryretgsdFrsftrsvfsfsrodGd0c2R0cXZsLmFuZjU5OC5jb20vdXNlcjEzNDIvNGU4ZWQ5ZmY5OWEyNDZmZDU5YjA2Yjc5N2FlNjAwNWYvRVAuNC52MC4xNzI5NDY2MTA1LjEwODBwLm1wND90b2tlbj1xb3dfMGNDVWlPWWhZY0hpeVNzU3hBJmV4cGlyZXM9MTcyOTQ4NTExOCZpZD0yMzU1MDk="  # Replace with your video link
+          VIDEO_URL="https://ggredi.info/download.php?url=aHR0cHM6LyAawehyfcghysfdsDGDYdgdsfsdfwstdgdsgtert9AdrefsdsdfwerFrefdsfrersfdsrfer36343534odGd0c2R0cXZsLmFuZjU5OC5jb20vdXNlcjEzNDIvNGU4ZWQ5ZmY5OWEyNDZmZDU5YjA2Yjc5N2FlNjAwNWYvRVAuNC52MC4xNzI5NDY2MTA1LjEwODBwLm1wND90b2tlbj15WGNhWms3aUlWd3FYeDJDaGdWVzl3JmV4cGlyZXM9MTcyOTUyMTg4OCZpZD0yMzU1MDk="  # Replace with your video link
           curl -L -o input.mp4 $VIDEO_URL
 
       - name: Re-encode video
-        run: ffmpeg -i input.mp4 -c:v libx265 -preset medium -crf 28 -c:a copy output.mp4
+        run: ffmpeg -i input.mp4 -c:v libx265 -preset medium -crf 24 -c:a copy output.mp4
 
       - name: Set release date
         run: echo "RELEASE_DATE=$(date +'%B %-d, %Y %H:%M')" >> $GITHUB_ENV
