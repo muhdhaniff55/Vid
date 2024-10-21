@@ -21,8 +21,14 @@ jobs:
       - name: Re-encode video
         run: ffmpeg -i input.mp4 -c:v libx265 -preset medium -crf 28 -c:a copy output.mp4
 
+      - name: Set release date
+        run: echo "RELEASE_DATE=$(date +'%B %-d, %Y %H:%M')" >> $GITHUB_ENV
+
       - name: Upload re-encoded video
-        uses: actions/upload-artifact@v4
+        uses: softprops/action-gh-release@v1
         with:
-          name: reencoded-video
-          path: output.mp4
+          files: output.mp4
+          name: Re-encoded video
+          tag_name: ${{ github.run_id }}
+          body: |
+            Released on ${{ env.RELEASE_DATE }}
