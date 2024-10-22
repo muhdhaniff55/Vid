@@ -6,7 +6,7 @@ on:
       input_video_url:
         description: 'URL of the video to download'
         required: true
-        default: 'https://drive.google.com/uc?id=1ReH7bi2uQr28dUtYIeiBrLcUL38bpjOb'
+        default: 'https://drive.google.com/uc?id=1-1sA4D4Bey07CqIpuksSI83k3ktiM771'
 
 jobs:
   reencode:
