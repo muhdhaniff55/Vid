@@ -18,7 +18,8 @@ jobs:
       - name: Install FFmpeg, curl, and jq
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg curl jq
+          sudo apt-get install -y ffmpeg curl jq python3-pip
+          pip3 install gdown
 
       - name: Download Video
         run: |
