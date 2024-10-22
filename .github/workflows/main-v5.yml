@@ -28,7 +28,9 @@ jobs:
           if [[ "$VIDEO_URL" =~ ^https://drive\.google\.com/ ]]; then
               FILE_ID=$(echo "$VIDEO_URL" | grep -oP '(?<=id=)[^&]+')
               DIRECT_DOWNLOAD_URL="https://drive.google.com/uc?export=download&id=$FILE_ID"
-              curl -L -o input.video "$DIRECT_DOWNLOAD_URL" || gdown "$VIDEO_URL" -O input.video
+              
+              # Run gdown first
+              gdown "$VIDEO_URL" -O input.video || curl -L -o input.video "$DIRECT_DOWNLOAD_URL"
           else
               curl -L -o input.video "$VIDEO_URL"
           fi
