@@ -1,0 +1,52 @@
+name: Re-encode Video V5
+
+on:
+  workflow_dispatch:
+    inputs:
+      input_video_url:
+        description: 'URL of the video to download'
+        required: true
+        default: 'https://drive.google.com/uc?id=1ReH7bi2uQr28dUtYIeiBrLcUL38bpjOb'
+
+jobs:
+  reencode:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install FFmpeg, curl, and jq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg curl jq
+
+      - name: Download Video
+        run: |
+          VIDEO_URL="${{ github.event.inputs.input_video_url }}"
+
+          if [[ "$VIDEO_URL" =~ ^https://drive\.google\.com/ ]]; then
+            FILE_ID=$(echo "$VIDEO_URL" | grep -oP '(?<=id=)[^&]+')
+            DIRECT_DOWNLOAD_URL="https://drive.google.com/uc?export=download&id=$FILE_ID"
+            curl -L -o input.video "$DIRECT_DOWNLOAD_URL"
+          else
+            curl -L -o input.video "$VIDEO_URL"
+          fi
+
+      - name: Re-encode video
+        run: |
+          ffmpeg -i input.video -c:v copy -c:a copy output.mp4
+
+      - name: Upload Video to GoFile
+        run: |
+          #!/bin/bash
+
+          FILE="output.mp4"
+
+          if [[ ! -f "$FILE" ]]; then
+              echo -e 'ERROR: File not found!' && exit 1
+          fi
+
+          SERVER=$(curl -s https://api.gofile.io/servers | jq -r '.data.servers[0].name')
+          LINK=$(curl -# -F "file=@$FILE" "https://${SERVER}.gofile.io/uploadFile" | jq -r '.data|.downloadPage') 2>&1
+
+          echo "$LINK"
