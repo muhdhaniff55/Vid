@@ -37,8 +37,8 @@ jobs:
 
       - name: Re-encode video
         run: |
-          ffmpeg -i input.mp4 -c:v libx264 -preset medium -crf 20 -c:a copy -r 60 output.mp4
-          
+          ffmpeg -i input.mp4 -c:v libx264 -preset medium -crf 20 -c:a aac -b:a 384k -r 60 output.mp4
+
       - name: Upload Video to GoFile
         run: |
           #!/bin/bash
