@@ -6,8 +6,7 @@ on:
       input_video_url:
         description: 'URL of the video to download'
         required: true
-        default: 'https://ggredi.info/download.php?url=aHR0cHM6LyAdeqwrwedffryretgsdFrsftrsvfsfsr9rdmZiaWAdrefsdsdfwerFrefdsfrersfdsrfer36343534RiZXpiLmFuZjU5OC5jb20vdXNlcjEzNDIvNWE4ZGY5NDZjOGI5Y2U1MWNlMDBlYWI1ZmU3OWM3YzUvRVAuNTYxLnYwLjE3MzAzMjQ3MDQuMTA4MHAubXA0P3Rva2VuPUFBVDhjUlF1WkgxZjM0ZVg0Y3lLLVEmZXhwaXJlcz0xNzMwMzgyODA3JmlkPTIzNjI0Mw=='
-
+        default: 'https://drive.google.com/file/d/1-0qWa13-22m12XPJhMIewzYnuTS8phdm/view?usp=drivesdk'
 jobs:
   reencode:
     runs-on: ubuntu-latest
