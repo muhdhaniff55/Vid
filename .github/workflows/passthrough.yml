@@ -1,4 +1,4 @@
-name: Passthrought GoFile
+name: Passthrough GoFile
 
 on:
   workflow_dispatch:
