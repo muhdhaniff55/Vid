@@ -6,7 +6,7 @@ on:
       input_video_url:
         description: 'URL of the video to download'
         required: true
-        default: 'https://drive.google.com/file/d/1-0qWa13-22m12XPJhMIewzYnuTS8phdm/view?usp=drivesdk'
+        default: 'https://drive.google.com/file/d/13sANcERIDekkf3J62YVRnKHV_otOFAjh/view?usp=drivesdk'
 
 jobs:
   reencode:
@@ -39,7 +39,7 @@ jobs:
 
       - name: Re-encode video
         run: |
-          ffmpeg -i input.video -movflags +faststart -c:v copy -c:a copy output.mp4
+          ffmpeg -i input.video -movflags +faststart -r 60 -c:v libx265 -c:a copy output.mp4
 
       - name: Upload Video to GoFile
         run: |
