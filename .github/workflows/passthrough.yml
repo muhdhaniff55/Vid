@@ -7,6 +7,7 @@ on:
         description: 'URL of the video to download'
         required: true
         default: 'https://drive.google.com/file/d/1-0qWa13-22m12XPJhMIewzYnuTS8phdm/view?usp=drivesdk'
+
 jobs:
   reencode:
     runs-on: ubuntu-latest
@@ -24,13 +25,15 @@ jobs:
         run: |
           VIDEO_URL="${{ github.event.inputs.input_video_url }}"
 
-          if [[ "$VIDEO_URL" =~ ^https://drive\.google\.com/ ]]; then
-              FILE_ID=$(echo "$VIDEO_URL" | grep -oP '(?<=id=)[^&]+')
+          # Extract the Google Drive file ID if it's a Google Drive link
+          if [[ "$VIDEO_URL" =~ ^https://drive\.google\.com/file/d/([^/]+)/ ]]; then
+              FILE_ID="${BASH_REMATCH[1]}"
               DIRECT_DOWNLOAD_URL="https://drive.google.com/uc?export=download&id=$FILE_ID"
               
-              # Run gdown first
-              gdown "$VIDEO_URL" -O input.video || curl -L -o input.video "$DIRECT_DOWNLOAD_URL"
+              # Attempt to download using gdown, fallback to curl
+              gdown "$DIRECT_DOWNLOAD_URL" -O input.video || curl -L -o input.video "$DIRECT_DOWNLOAD_URL"
           else
+              # For non-Google Drive links, directly use curl
               curl -L -o input.video "$VIDEO_URL"
           fi
 
